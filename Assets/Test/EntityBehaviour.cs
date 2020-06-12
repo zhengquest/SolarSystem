@@ -10,7 +10,6 @@ namespace Test
         public EntityBehaviour(Entity centreEntity)
         {
             m_centreOfGravity = centreEntity;
-            m_centreOfGravity = new Entity();
         }
         
         public void Update(Entity entity, float deltaTime)
