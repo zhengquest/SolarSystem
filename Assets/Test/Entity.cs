@@ -32,10 +32,7 @@ namespace Test
         
         public void Update(float deltaTime)
         {
-            if (m_behaviour != null)
-            {
-                m_behaviour.Update(this, deltaTime);
-            }
+            m_behaviour?.Update(this, deltaTime);
 
             // Do integration over time.
             Position += Velocity * deltaTime;
