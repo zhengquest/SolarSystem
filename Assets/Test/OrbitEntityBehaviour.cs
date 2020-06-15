@@ -46,7 +46,7 @@ namespace Test
                 currentPosition += currentVelocity * m_fixedTimeStep;
                 m_orbit.Add(currentPosition);
 
-            } while (Vector2.Dot(currentVelocity.normalized, m_satelliteEntity.Velocity.normalized) < 0.999f);
+            } while (Vector2.Dot(currentVelocity.normalized, m_satelliteEntity.Velocity.normalized) < 0.9999f);
             
             Debug.LogError("orbit complete. points in orbit: "+m_orbit.Count);
         }

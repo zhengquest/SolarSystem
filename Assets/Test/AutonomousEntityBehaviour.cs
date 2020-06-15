@@ -42,7 +42,7 @@ namespace Test
 
 			if (adjustmentVector.magnitude > 0.25f)
 			{
-				Debug.Break();
+				//Debug.Break();
 			}
 
 			return adjustmentVector * 30f;
