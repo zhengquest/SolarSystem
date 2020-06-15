@@ -9,7 +9,7 @@ namespace Test
         public Vector2 Position { get; private set; }
         public Vector2 Velocity { get; private set; }
 
-        private EntityBehaviour m_behaviour;
+        private EntityOrbitBehaviour _mOrbitBehaviour;
 
         public Entity()
         {        
@@ -25,14 +25,14 @@ namespace Test
             Velocity = velocity;
         }
 
-        public void SetBehaviour(EntityBehaviour behaviour)
+        public void SetBehaviour(EntityOrbitBehaviour orbitBehaviour)
         {
-            m_behaviour = behaviour;
+            _mOrbitBehaviour = orbitBehaviour;
         }
         
         public void Update(float deltaTime)
         {
-            m_behaviour?.Update(this, deltaTime);
+            _mOrbitBehaviour?.Update(deltaTime);
 
             // Do integration over time.
             Position += Velocity * deltaTime;

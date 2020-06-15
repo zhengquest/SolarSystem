@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TestMain : MonoBehaviour
 {
-    Test.World m_world = new Test.World();
+    Test.World m_world;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_world = new Test.World();
     }
 
     // Update is called once per frame
