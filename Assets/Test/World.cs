@@ -18,12 +18,7 @@ namespace Test
             m_entity = new Entity();
             m_entity.SetPosition(new Vector2(0, 1));
             m_entity.SetVelocity(new Vector2(3f, 0));
-            
-            var orbitBehaviour = new EntityOrbitBehaviour(m_planet, m_entity);
-            var orbit = orbitBehaviour.CalculateOrbit(m_fixedTimeStep);
-            
-            m_entity.SetOrbit(orbit);
-            m_entity.SetBehaviour(orbitBehaviour);
+            m_entity.SetBehaviour(new EntityOrbitBehaviour(m_planet, m_entity, m_fixedTimeStep));
         }
         
         public void Update(float deltaTime)

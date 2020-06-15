@@ -7,23 +7,26 @@ namespace Test
     public class EntityOrbitBehaviour
     {
         private Entity m_centreOfGravity;
-        private Entity m_orbitEntity;
+        private Entity m_satelliteEntity;
      
         private readonly float m_gravityForce = 10f;
 
-        public EntityOrbitBehaviour(Entity centreEntity, Entity orbitEntity)
+        public EntityOrbitBehaviour(Entity centreEntity, Entity satelliteEntity, float fixedTimeStep)
         {
             m_centreOfGravity = centreEntity;
-            m_orbitEntity = orbitEntity;
+            m_satelliteEntity = satelliteEntity;
+            
+            // knowing two entities, it's possible to calculate the orbit for the satellite
+            m_satelliteEntity.SetOrbit(CalculateOrbit(fixedTimeStep));
         }
-
-        public List<Vector2> CalculateOrbit(float fixedTimeStep)
+        
+        private IEnumerable<Vector2> CalculateOrbit(float fixedTimeStep)
         {
             List<Vector2> orbit = new List<Vector2>();
 
             //Vector2 nextPosition = m_centreOfGravity.Position;
-            Vector2 currentPosition = m_orbitEntity.Position;
-            Vector2 currentVelocity = m_orbitEntity.Velocity;
+            Vector2 currentPosition = m_satelliteEntity.Position;
+            Vector2 currentVelocity = m_satelliteEntity.Velocity;
 
             // First point in the orbit
             orbit.Add(currentPosition);
@@ -41,7 +44,7 @@ namespace Test
                 currentPosition += currentVelocity * fixedTimeStep;
                 orbit.Add(currentPosition);
 
-            } while (Vector2.Dot(currentVelocity.normalized, m_orbitEntity.Velocity.normalized) < 0.999f);
+            } while (Vector2.Dot(currentVelocity.normalized, m_satelliteEntity.Velocity.normalized) < 0.999f);
             
             Debug.LogError("orbit complete");
             return orbit;
@@ -49,10 +52,10 @@ namespace Test
 
         public void Update(float deltaTime)
         {
-            var acc = CalculateAcceleration(m_orbitEntity.Position);
+            var acc = CalculateAcceleration(m_satelliteEntity.Position);
 
             // Apply acceleration toward the centre of mass.
-            m_orbitEntity.SetVelocity(m_orbitEntity.Velocity + acc * deltaTime);
+            m_satelliteEntity.SetVelocity(m_satelliteEntity.Velocity + acc * deltaTime);
         }
 
         protected virtual Vector2 CalculateAcceleration(Vector2 position)

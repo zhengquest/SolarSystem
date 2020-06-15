@@ -34,7 +34,7 @@ namespace Test
             _mOrbitBehaviour = orbitBehaviour;
         }
 
-        public void SetOrbit(List<Vector2> orbit)
+        public void SetOrbit(IEnumerable<Vector2> orbit)
         {
             m_orbit = new List<Vector2>(orbit);
         }
