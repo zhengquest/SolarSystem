@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Test
@@ -10,6 +12,8 @@ namespace Test
         public Vector2 Velocity { get; private set; }
 
         private EntityOrbitBehaviour _mOrbitBehaviour;
+
+        private List<Vector2> m_orbit;
 
         public Entity()
         {        
@@ -29,7 +33,12 @@ namespace Test
         {
             _mOrbitBehaviour = orbitBehaviour;
         }
-        
+
+        public void SetOrbit(List<Vector2> orbit)
+        {
+            m_orbit = new List<Vector2>(orbit);
+        }
+
         public void Update(float deltaTime)
         {
             _mOrbitBehaviour?.Update(deltaTime);
@@ -60,7 +69,24 @@ namespace Test
                 float size = 0.2f;
                 Vector3 dirEnd = new Vector3(Position.x + direction.x*size, Position.y + direction.y*size, 0);
                 Debug.DrawLine(pos, dirEnd, Color.white);
+                
+                RenderOrbit();
             }
+        }
+        
+        private void RenderOrbit()
+        {
+            if (m_orbit.Count < 2)
+            {
+                throw new Exception("orbit vertices too few");
+            }
+            
+            for (int i = 1; i < m_orbit.Count; i++)
+            {
+                Debug.DrawLine(m_orbit[i - 1], m_orbit[i], Color.blue);
+            }
+            
+            Debug.DrawLine(m_orbit[m_orbit.Count - 1], m_orbit[0], Color.blue);
         }
     }
 }
