@@ -1,30 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Test
 {
     public class World
     {
-        private Entity m_entity;
-        private Entity m_planet;
-
         private float m_timeStepAccumulator = 0.0f;
         private float m_fixedTimeStep = 0.016f;
-        private Entity m_entity2;
-
+        private List<Entity> m_entities;
+        
         public World()
         {
-            m_planet = new Entity();
-            m_planet.SetPosition(new Vector2(0, 2));
+            m_entities = new List<Entity>(5);
             
-            m_entity = new Entity();
-            m_entity.SetPosition(new Vector2(0, 1));
-            m_entity.SetVelocity(new Vector2(2f, 0));
-            m_entity.SetBehaviour(new AutonomousEntityBehaviour(m_planet, m_entity, m_fixedTimeStep));
-            
-            m_entity2 = new Entity();
-            m_entity2.SetPosition(new Vector2(0, 0));
-            m_entity2.SetVelocity(new Vector2(1f, 0));
-            m_entity2.SetBehaviour(new OrbitEntityBehaviour(m_planet, m_entity2, m_fixedTimeStep));
+            Entity sun = new StarEntity();
+            sun.SetPosition(new Vector2(0, 2));
+            m_entities.Add(sun);
+
+            Entity autonomousPlanet = new PlanetEntity();
+            autonomousPlanet.SetPosition(new Vector2(0, 1));
+            autonomousPlanet.SetVelocity(new Vector2(2f, 0));
+            autonomousPlanet.SetBehaviour(
+                new AutonomousEntityBehaviour(sun, autonomousPlanet, m_fixedTimeStep));
+            m_entities.Add(autonomousPlanet);
+
+            Entity unstablePlanet = new PlanetEntity();
+            unstablePlanet.SetPosition(new Vector2(0, 0));
+            unstablePlanet.SetVelocity(new Vector2(1f, 0));
+            unstablePlanet.SetBehaviour(
+                new OrbitEntityBehaviour(sun, unstablePlanet, m_fixedTimeStep));
+            m_entities.Add(unstablePlanet);
         }
         
         public void Update(float deltaTime)
@@ -33,19 +38,19 @@ namespace Test
 
             for (; m_timeStepAccumulator > m_fixedTimeStep; m_timeStepAccumulator -= m_fixedTimeStep)
             {
-                m_planet.Update(m_fixedTimeStep);
-                m_entity.Update(m_fixedTimeStep);
-                m_entity2.Update(m_fixedTimeStep);
-
+                foreach (Entity entity in m_entities)
+                {
+                    entity.Update(m_fixedTimeStep);
+                }
             }
         }
 
         public void Render()
         {
-            m_planet.Render();
-            m_entity.Render();
-            m_entity2.Render();
-
+            foreach (Entity entity in m_entities)
+            {
+                entity.Render();
+            }
         }
     }
 }
