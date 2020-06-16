@@ -30,6 +30,12 @@ namespace Test
             Vector2 currentPosition = m_satelliteEntity.Position;
             Vector2 currentVelocity = m_satelliteEntity.Velocity;
 
+            // can't calculate orbit without intitial velocity
+            if (m_satelliteEntity.Velocity == Vector2.zero)
+            {
+                return;
+            }
+            
             // First point in the orbit
             m_orbit.Add(currentPosition);
             
