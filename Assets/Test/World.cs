@@ -32,6 +32,10 @@ namespace Test
             unstablePlanet.SetBehaviour(
                 new OrbitEntityBehaviour(sun, unstablePlanet, m_fixedTimeStep));
             m_entities.Add(unstablePlanet);
+            
+            PlayerEntity player = new PlayerEntity();
+            unstablePlanet.SetPosition(new Vector2(0, -1));
+            m_entities.Add(player);
         }
         
         public void Update(float deltaTime)
