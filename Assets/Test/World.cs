@@ -34,7 +34,9 @@ namespace Test
             m_entities.Add(unstablePlanet);
             
             PlayerEntity player = new PlayerEntity();
-            unstablePlanet.SetPosition(new Vector2(0, -1));
+            player.SetPosition(new Vector2(0, -1));
+            player.SetBehaviour(
+                new PlayerEntityBehaviour(sun, player, m_fixedTimeStep));
             m_entities.Add(player);
         }
         

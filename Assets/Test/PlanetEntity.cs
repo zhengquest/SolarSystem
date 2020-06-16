@@ -24,12 +24,10 @@ namespace Test
             
 			for(int i = 1; i < 91; i++)
 			{
-				nextPoint.x = Mathf.Cos((i*4)*Mathf.Deg2Rad) * size;
-				nextPoint.y = Mathf.Sin((i*4)*Mathf.Deg2Rad) * size;
+				nextPoint.x = Mathf.Cos((i * 4) * Mathf.Deg2Rad) * size;
+				nextPoint.y = Mathf.Sin((i * 4) * Mathf.Deg2Rad) * size;
 				nextPoint += pos;
-                    
 				Debug.DrawLine(startPoint, nextPoint, m_renderColor);
-                    
 				startPoint = nextPoint;
 			}
 

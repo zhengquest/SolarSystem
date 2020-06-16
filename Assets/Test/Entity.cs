@@ -7,6 +7,7 @@ namespace Test
     {
         // Position and velocity in space.
         public Vector2 Position { get; private set; }
+        public Quaternion Rotation { get; private set; } = Quaternion.identity;
         public Vector2 Velocity { get; private set; }
 
         protected OrbitEntityBehaviour m_behaviour;
@@ -18,6 +19,11 @@ namespace Test
         public void SetPosition(Vector2 pos)
         {
             Position = pos;
+        }
+        
+        public void SetRotation(Quaternion rot)
+        {
+            Rotation = rot;
         }
 
         public void SetVelocity(Vector2 velocity)
