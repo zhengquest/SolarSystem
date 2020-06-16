@@ -13,20 +13,22 @@ namespace Test
         {
             m_entities = new List<Entity>(5);
             
-            Entity sun = new StarEntity();
+            StarEntity sun = new StarEntity();
             sun.SetPosition(new Vector2(0, 2));
             m_entities.Add(sun);
 
-            Entity autonomousPlanet = new PlanetEntity();
+            PlanetEntity autonomousPlanet = new PlanetEntity();
             autonomousPlanet.SetPosition(new Vector2(0, 1));
             autonomousPlanet.SetVelocity(new Vector2(2f, 0));
+            autonomousPlanet.SetRenderParameter(0.05f, Color.green, 3);
             autonomousPlanet.SetBehaviour(
                 new AutonomousEntityBehaviour(sun, autonomousPlanet, m_fixedTimeStep));
             m_entities.Add(autonomousPlanet);
 
-            Entity unstablePlanet = new PlanetEntity();
+            PlanetEntity unstablePlanet = new PlanetEntity();
             unstablePlanet.SetPosition(new Vector2(0, 0));
             unstablePlanet.SetVelocity(new Vector2(1f, 0));
+            unstablePlanet.SetRenderParameter(0.05f, Color.white, 20);
             unstablePlanet.SetBehaviour(
                 new OrbitEntityBehaviour(sun, unstablePlanet, m_fixedTimeStep));
             m_entities.Add(unstablePlanet);
