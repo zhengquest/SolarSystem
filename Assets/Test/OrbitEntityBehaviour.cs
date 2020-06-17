@@ -4,24 +4,29 @@ using UnityEngine;
 
 namespace Test
 {
+    /// <summary>
+    /// This class contains the provided default entity behaviour logic
+    /// I added a function to calculate a projected orbit based on initial position and velocity of the entity
+    /// as well as a render function to draw it out
+    /// </summary>
     public class OrbitEntityBehaviour : BaseEntityBehaviour
     {
         protected Entity m_centreOfGravity;
         protected Entity m_satelliteEntity;
         protected List<Vector2> m_orbit;
         protected bool m_renderOrbit;
-        protected float m_fixedTimeStep;
+        
+        private const int m_maxPointsInOrbit = 500;
+        private const float m_gravityForce = 10f;
+        private const float m_tolerance = 0.9999f;
 
-        private readonly float m_gravityForce = 10f;
-
-        public OrbitEntityBehaviour(Entity centreEntity, Entity satelliteEntity, float fixedTimeStep)
+        public OrbitEntityBehaviour(Entity centreEntity, Entity satelliteEntity)
         {
             m_centreOfGravity = centreEntity;
             m_satelliteEntity = satelliteEntity;
-            m_fixedTimeStep = fixedTimeStep;
         }
         
-        public void CalculateOrbit(bool renderOrbit)
+        public void CalculateOrbit(float fixedTimeStep, bool renderOrbit)
         {
             m_renderOrbit = renderOrbit;
             m_orbit = new List<Vector2>();
@@ -29,31 +34,28 @@ namespace Test
             Vector2 currentPosition = m_satelliteEntity.Position;
             Vector2 currentVelocity = m_satelliteEntity.Velocity;
 
-            // can't calculate orbit without intitial velocity
+            // can't calculate orbit without initial velocity
             if (m_satelliteEntity.Velocity == Vector2.zero)
             {
                 return;
             }
             
-            // First point in the orbit
+            // add the first point in the orbit
             m_orbit.Add(currentPosition);
             
-            // Keep adding point to the orbit for a full loop
+            // keep adding points to the orbit until a full loop is achieved
             do
             {
-                if (m_orbit.Count > 1000)
+                if (m_orbit.Count > m_maxPointsInOrbit)
                 {
-                    Debug.LogError("something prolly went wrong. break now");
                     break;
                 }
                 
-                currentVelocity += CalculateAcceleration(m_centreOfGravity.Position, currentPosition) * m_fixedTimeStep;
-                currentPosition += currentVelocity * m_fixedTimeStep;
+                currentVelocity += CalculateAcceleration(m_centreOfGravity.Position, currentPosition) * fixedTimeStep;
+                currentPosition += currentVelocity * fixedTimeStep;
                 m_orbit.Add(currentPosition);
 
-            } while (Vector2.Dot(currentVelocity.normalized, m_satelliteEntity.Velocity.normalized) < 0.9999f);
-            
-            Debug.LogError("orbit complete. points in orbit: "+m_orbit.Count);
+            } while (Vector2.Dot(currentVelocity.normalized, m_satelliteEntity.Velocity.normalized) < m_tolerance);
         }
 
         public override void Update(float deltaTime)

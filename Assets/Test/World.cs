@@ -5,8 +5,8 @@ namespace Test
 {
     public class World
     {
+        private const float m_fixedTimeStep = 0.016f;
         private float m_timeStepAccumulator = 0.0f;
-        private float m_fixedTimeStep = 0.016f;
         private List<Entity> m_entities;
         
         public World()
@@ -22,8 +22,8 @@ namespace Test
             autonomousPlanet.SetPosition(new Vector2(0, 1));
             autonomousPlanet.SetVelocity(new Vector2(2, 0));
             autonomousPlanet.SetRenderParameter(0.05f, Color.green, 3);
-            AutonomousEntityBehaviour autonomousBehaviour = new AutonomousEntityBehaviour(sun, autonomousPlanet, m_fixedTimeStep);
-            autonomousBehaviour.CalculateOrbit(true);
+            AutonomousEntityBehaviour autonomousBehaviour = new AutonomousEntityBehaviour(sun, autonomousPlanet);
+            autonomousBehaviour.CalculateOrbit(m_fixedTimeStep, true);
             autonomousPlanet.SetBehaviour(autonomousBehaviour);
             m_entities.Add(autonomousPlanet);
 
@@ -31,8 +31,8 @@ namespace Test
             autonomousPlanet1.SetPosition(new Vector2(0, 0.5f));
             autonomousPlanet1.SetVelocity(new Vector2(2, 0));
             autonomousPlanet1.SetRenderParameter(0.05f, Color.yellow, 5);
-            AutonomousEntityBehaviour autonomousBehaviour1 = new AutonomousEntityBehaviour(sun, autonomousPlanet1, m_fixedTimeStep);
-            autonomousBehaviour1.CalculateOrbit(true);
+            AutonomousEntityBehaviour autonomousBehaviour1 = new AutonomousEntityBehaviour(sun, autonomousPlanet1);
+            autonomousBehaviour1.CalculateOrbit(m_fixedTimeStep, true);
             autonomousPlanet1.SetBehaviour(autonomousBehaviour1);
             m_entities.Add(autonomousPlanet1);
             
@@ -40,8 +40,8 @@ namespace Test
             autonomousPlanet2.SetPosition(new Vector2(0, 0));
             autonomousPlanet2.SetVelocity(new Vector2(2, 0));
             autonomousPlanet2.SetRenderParameter(0.05f, Color.magenta, 7);
-            AutonomousEntityBehaviour autonomousBehaviour2 = new AutonomousEntityBehaviour(sun, autonomousPlanet2, m_fixedTimeStep);
-            autonomousBehaviour2.CalculateOrbit(true);
+            AutonomousEntityBehaviour autonomousBehaviour2 = new AutonomousEntityBehaviour(sun, autonomousPlanet2);
+            autonomousBehaviour2.CalculateOrbit(m_fixedTimeStep, true);
             autonomousPlanet2.SetBehaviour(autonomousBehaviour2);
             m_entities.Add(autonomousPlanet2);
             
@@ -49,8 +49,8 @@ namespace Test
             unstablePlanet.SetPosition(new Vector2(0, 0));
             unstablePlanet.SetVelocity(new Vector2(1, 0));
             unstablePlanet.SetRenderParameter(0.05f, Color.white, 10);
-            OrbitEntityBehaviour orbitBehaviour = new OrbitEntityBehaviour(sun, unstablePlanet, m_fixedTimeStep);
-            orbitBehaviour.CalculateOrbit(true);
+            OrbitEntityBehaviour orbitBehaviour = new OrbitEntityBehaviour(sun, unstablePlanet);
+            orbitBehaviour.CalculateOrbit(m_fixedTimeStep, true);
             unstablePlanet.SetBehaviour(orbitBehaviour);
             m_entities.Add(unstablePlanet);
             
@@ -58,8 +58,8 @@ namespace Test
             unstablePlanet1.SetPosition(new Vector2(1, 3));
             unstablePlanet1.SetVelocity(new Vector2(-1f, 1));
             unstablePlanet1.SetRenderParameter(0.05f, Color.white, 10);
-            OrbitEntityBehaviour orbitBehaviour1 = new OrbitEntityBehaviour(sun, unstablePlanet1, m_fixedTimeStep);
-            orbitBehaviour1.CalculateOrbit(true);
+            OrbitEntityBehaviour orbitBehaviour1 = new OrbitEntityBehaviour(sun, unstablePlanet1);
+            orbitBehaviour1.CalculateOrbit(m_fixedTimeStep, true);
             unstablePlanet1.SetBehaviour(orbitBehaviour1);
             m_entities.Add(unstablePlanet1);
             
@@ -67,15 +67,15 @@ namespace Test
             unstablePlanet2.SetPosition(new Vector2(-1, 3));
             unstablePlanet2.SetVelocity(new Vector2(-1f, -1));
             unstablePlanet2.SetRenderParameter(0.05f, Color.white, 10);
-            OrbitEntityBehaviour orbitBehaviour2 = new OrbitEntityBehaviour(sun, unstablePlanet2, m_fixedTimeStep);
-            orbitBehaviour2.CalculateOrbit(true);
+            OrbitEntityBehaviour orbitBehaviour2 = new OrbitEntityBehaviour(sun, unstablePlanet2);
+            orbitBehaviour2.CalculateOrbit(m_fixedTimeStep, true);
             unstablePlanet2.SetBehaviour(orbitBehaviour2);
             m_entities.Add(unstablePlanet2);
             
             PlayerEntity player = new PlayerEntity();
             player.SetPosition(new Vector2(0, -1));
             player.SetVelocity(new Vector2(0, 0.01f));
-            player.SetBehaviour(new PlayerEntityBehaviour(sun, player, m_fixedTimeStep));
+            player.SetBehaviour(new PlayerEntityBehaviour(sun, player));
             m_entities.Add(player);
         }
         

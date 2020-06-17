@@ -6,6 +6,7 @@ namespace Test
 	{
 		public override void Update(float deltaTime)
 		{
+			// make star stationary by not calling base update function
 		}
 
 		public override void Render()

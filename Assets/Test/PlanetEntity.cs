@@ -22,6 +22,7 @@ namespace Test
 			Vector3 nextPoint = pos;
 			Vector3 startPoint = pos + new Vector3(Mathf.Cos(0), Mathf.Sin(0), 0) * size;
             
+			// draw a circle first
 			for(int i = 1; i < 91; i++)
 			{
 				nextPoint.x = Mathf.Cos((i * 4) * Mathf.Deg2Rad) * size;
@@ -31,6 +32,7 @@ namespace Test
 				startPoint = nextPoint;
 			}
 
+			// divide the circle by specified parameter and connect center with divided points
 			float angle = 2 * Mathf.PI / m_division;
 
 			for (int i = 0; i < m_division; i++)
