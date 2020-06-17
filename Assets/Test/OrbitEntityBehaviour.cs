@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Test
 {
-    public class OrbitEntityBehaviour
+    public class OrbitEntityBehaviour : BaseEntityBehaviour
     {
         protected Entity m_centreOfGravity;
         protected Entity m_satelliteEntity;
@@ -56,14 +56,14 @@ namespace Test
             Debug.LogError("orbit complete. points in orbit: "+m_orbit.Count);
         }
 
-        public virtual void Update(float deltaTime)
+        public override void Update(float deltaTime)
         {
             var acc = CalculateAcceleration(m_centreOfGravity.Position, m_satelliteEntity.Position);
             // Apply acceleration toward the centre of mass.
             m_satelliteEntity.SetVelocity(m_satelliteEntity.Velocity + acc * deltaTime);
         }
 
-        public virtual void Render()
+        public override void Render()
         {
             if (m_renderOrbit)
             {

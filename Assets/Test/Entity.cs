@@ -10,7 +10,7 @@ namespace Test
         public Quaternion Rotation { get; private set; } 
         public Vector2 Velocity { get; private set; }
 
-        private OrbitEntityBehaviour m_behaviour;
+        private BaseEntityBehaviour m_behaviour;
 
         public Entity()
         {        
@@ -31,7 +31,7 @@ namespace Test
             Velocity = velocity;
         }
 
-        public void SetBehaviour(OrbitEntityBehaviour behaviour)
+        public void SetBehaviour(BaseEntityBehaviour behaviour)
         {
             m_behaviour = behaviour;
         }
