@@ -41,7 +41,7 @@ namespace Test
             // Keep adding point to the orbit for a full loop
             do
             {
-                if (m_orbit.Count > 150)
+                if (m_orbit.Count > 1000)
                 {
                     Debug.LogError("something prolly went wrong. break now");
                     break;
@@ -67,7 +67,7 @@ namespace Test
         {
             if (m_renderOrbit)
             {
-                RenderOrbit(Color.red);
+                RenderOrbit(Color.HSVToRGB(0,0.65f,1f));
             }
         }
 

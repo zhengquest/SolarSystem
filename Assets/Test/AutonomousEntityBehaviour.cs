@@ -54,7 +54,7 @@ namespace Test
 		{
 			if (m_renderOrbit)
 			{
-				RenderOrbit(Color.blue);
+				RenderOrbit(Color.HSVToRGB(0.7f,0.65f,1f));
 			}		
 		}
 
