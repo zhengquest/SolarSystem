@@ -35,6 +35,7 @@ namespace Test
             
             PlayerEntity player = new PlayerEntity();
             player.SetPosition(new Vector2(0, -1));
+            player.SetVelocity(new Vector2(0, 0.1f));
             player.SetBehaviour(
                 new PlayerEntityBehaviour(sun, player, m_fixedTimeStep));
             m_entities.Add(player);
