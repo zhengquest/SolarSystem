@@ -11,7 +11,7 @@ namespace Test
         
         public World()
         {
-            m_entities = new List<Entity>(5);
+            m_entities = new List<Entity>(7);
             
             StarEntity sun = new StarEntity();
             sun.SetPosition(new Vector2(0, 2));
