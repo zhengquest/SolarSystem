@@ -41,11 +41,11 @@ namespace Test
 					new Vector4(0, 0, 1, 0),
 					new Vector4(0, 0, 0, 1));
 				
-				var point = pos + matrix.MultiplyPoint(new Vector3(0, size, 0));
+				var point = pos + matrix.MultiplyPoint3x4(new Vector3(0, size, 0));
 				Debug.DrawLine(pos, point, m_renderColor);
 			}
-            
-			m_behaviour?.Render();
+			
+			base.Render();
 		}
 	}
 }

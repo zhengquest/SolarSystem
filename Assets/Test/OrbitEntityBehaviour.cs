@@ -9,6 +9,7 @@ namespace Test
         protected Entity m_centreOfGravity;
         protected Entity m_satelliteEntity;
         protected List<Vector2> m_orbit;
+        protected bool m_renderOrbit;
         protected float m_fixedTimeStep;
 
         private readonly float m_gravityForce = 10f;
@@ -18,13 +19,11 @@ namespace Test
             m_centreOfGravity = centreEntity;
             m_satelliteEntity = satelliteEntity;
             m_fixedTimeStep = fixedTimeStep;
-
-            // knowing two entities, it's possible to calculate the orbit for the satellite
-            CalculateOrbit();
         }
         
-        private void CalculateOrbit()
+        public void CalculateOrbit(bool renderOrbit)
         {
+            m_renderOrbit = renderOrbit;
             m_orbit = new List<Vector2>();
 
             Vector2 currentPosition = m_satelliteEntity.Position;
@@ -66,7 +65,10 @@ namespace Test
 
         public virtual void Render()
         {
-            RenderOrbit(Color.red);
+            if (m_renderOrbit)
+            {
+                RenderOrbit(Color.red);
+            }
         }
 
         protected Vector2 CalculateAcceleration(Vector2 centerPosition, Vector2 satellitePosition)

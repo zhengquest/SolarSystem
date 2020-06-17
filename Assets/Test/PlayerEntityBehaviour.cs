@@ -4,12 +4,12 @@ namespace Test
 {
 	public class PlayerEntityBehaviour : OrbitEntityBehaviour
 	{
-		private readonly float m_turnAngle = 15f;
-		private readonly Vector2 m_acceleration = new Vector2(0,0.2f);
+		private const float m_turnAngle = 15f;
+		private readonly Vector2 m_acceleration = new Vector2(0,0.3f);
 
 		// should you override or cast?
 		private new PlayerEntity m_satelliteEntity;
-		
+
 		public PlayerEntityBehaviour(Entity centreEntity, PlayerEntity satelliteEntity, float fixedTimeStep) 
 			: base(centreEntity, satelliteEntity, fixedTimeStep)
 		{

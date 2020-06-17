@@ -52,7 +52,10 @@ namespace Test
 
 		public override void Render()
 		{
-			RenderOrbit(Color.blue);
+			if (m_renderOrbit)
+			{
+				RenderOrbit(Color.blue);
+			}		
 		}
 
 		private float ScaleAdjustmentMagnitude(float x, float scalar)
