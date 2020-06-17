@@ -7,7 +7,7 @@ namespace Test
 		private readonly float m_turnAngle = 15f;
 		private readonly Vector2 m_acceleration = new Vector2(0,0.2f);
 
-		private Vector3 m_rotateAxis;
+		// should you override or cast?
 		private new PlayerEntity m_satelliteEntity;
 		
 		public PlayerEntityBehaviour(Entity centreEntity, PlayerEntity satelliteEntity, float fixedTimeStep) 
@@ -22,15 +22,17 @@ namespace Test
 			//attraction to sun
 			base.Update(deltaTime);
 
+			float currentRotationAngleZ = m_satelliteEntity.Rotation.eulerAngles.z;
+			
 			if (Input.GetKey(KeyCode.A))
 			{
 				m_satelliteEntity.SetRotation(
-					m_satelliteEntity.Rotation * Quaternion.AngleAxis(m_turnAngle, Vector3.forward));
+					Quaternion.AngleAxis(currentRotationAngleZ + m_turnAngle, Vector3.forward));
 			}
 			else if (Input.GetKey(KeyCode.D))
 			{
 				m_satelliteEntity.SetRotation(
-					m_satelliteEntity.Rotation * Quaternion.AngleAxis(m_turnAngle * -1f, Vector3.forward));
+					Quaternion.AngleAxis(currentRotationAngleZ - m_turnAngle, Vector3.forward));
 			}
 			else
 			{
