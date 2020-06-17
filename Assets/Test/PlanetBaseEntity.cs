@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Test
 {
-	public class PlanetEntity : Entity
+	public class PlanetBaseEntity : BaseEntity
 	{
 		private float m_renderSize;
 		private Color m_renderColor;

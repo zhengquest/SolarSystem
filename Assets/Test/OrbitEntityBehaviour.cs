@@ -11,8 +11,8 @@ namespace Test
     /// </summary>
     public class OrbitEntityBehaviour : BaseEntityBehaviour
     {
-        protected Entity m_centreOfGravity;
-        protected Entity m_satelliteEntity;
+        protected BaseEntity MCentreBaseOfGravity;
+        protected BaseEntity MSatelliteBaseEntity;
         protected List<Vector2> m_orbit;
         protected bool m_renderOrbit;
         
@@ -20,10 +20,10 @@ namespace Test
         private const float m_gravityForce = 10f;
         private const float m_tolerance = 0.9999f;
 
-        public OrbitEntityBehaviour(Entity centreEntity, Entity satelliteEntity)
+        public OrbitEntityBehaviour(BaseEntity centreBaseEntity, BaseEntity satelliteBaseEntity)
         {
-            m_centreOfGravity = centreEntity;
-            m_satelliteEntity = satelliteEntity;
+            MCentreBaseOfGravity = centreBaseEntity;
+            MSatelliteBaseEntity = satelliteBaseEntity;
         }
         
         public void CalculateOrbit(float fixedTimeStep, bool renderOrbit)
@@ -31,11 +31,11 @@ namespace Test
             m_renderOrbit = renderOrbit;
             m_orbit = new List<Vector2>();
 
-            Vector2 currentPosition = m_satelliteEntity.Position;
-            Vector2 currentVelocity = m_satelliteEntity.Velocity;
+            Vector2 currentPosition = MSatelliteBaseEntity.Position;
+            Vector2 currentVelocity = MSatelliteBaseEntity.Velocity;
 
             // can't calculate orbit without initial velocity
-            if (m_satelliteEntity.Velocity == Vector2.zero)
+            if (MSatelliteBaseEntity.Velocity == Vector2.zero)
             {
                 return;
             }
@@ -51,18 +51,18 @@ namespace Test
                     break;
                 }
                 
-                currentVelocity += CalculateAcceleration(m_centreOfGravity.Position, currentPosition) * fixedTimeStep;
+                currentVelocity += CalculateAcceleration(MCentreBaseOfGravity.Position, currentPosition) * fixedTimeStep;
                 currentPosition += currentVelocity * fixedTimeStep;
                 m_orbit.Add(currentPosition);
 
-            } while (Vector2.Dot(currentVelocity.normalized, m_satelliteEntity.Velocity.normalized) < m_tolerance);
+            } while (Vector2.Dot(currentVelocity.normalized, MSatelliteBaseEntity.Velocity.normalized) < m_tolerance);
         }
 
         public override void Update(float deltaTime)
         {
-            var acc = CalculateAcceleration(m_centreOfGravity.Position, m_satelliteEntity.Position);
+            var acc = CalculateAcceleration(MCentreBaseOfGravity.Position, MSatelliteBaseEntity.Position);
             // Apply acceleration toward the centre of mass.
-            m_satelliteEntity.SetVelocity(m_satelliteEntity.Velocity + acc * deltaTime);
+            MSatelliteBaseEntity.SetVelocity(MSatelliteBaseEntity.Velocity + acc * deltaTime);
         }
 
         public override void Render()

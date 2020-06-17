@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Test
 {
-	public class StarEntity : Entity
+	public class StarBaseEntity : BaseEntity
 	{
 		public override void Update(float deltaTime)
 		{

@@ -12,21 +12,21 @@ namespace Test
 		private int m_currentOrbitIndex;
 		private const float m_adjustmentStrength = 30f;
 
-		public AutonomousEntityBehaviour(Entity centreEntity, Entity satelliteEntity) 
-			: base(centreEntity, satelliteEntity)
+		public AutonomousEntityBehaviour(BaseEntity centreBaseEntity, BaseEntity satelliteBaseEntity) 
+			: base(centreBaseEntity, satelliteBaseEntity)
 		{
 			m_currentOrbitIndex = 0;
 		}
 
 		public override void Update(float deltaTime)
 		{
-			Vector2 acc = CalculateAcceleration(m_centreOfGravity.Position, m_satelliteEntity.Position);
+			Vector2 acc = CalculateAcceleration(MCentreBaseOfGravity.Position, MSatelliteBaseEntity.Position);
 			Vector2 deltaAcc = acc * deltaTime;
-			Vector2 adjustment = (m_orbit[m_currentOrbitIndex] - m_satelliteEntity.Position) * m_adjustmentStrength;
+			Vector2 adjustment = (m_orbit[m_currentOrbitIndex] - MSatelliteBaseEntity.Position) * m_adjustmentStrength;
 			Vector2 adjustedAcc =  adjustment.magnitude > 0.1f ? adjustment 
-				: adjustment + m_satelliteEntity.Velocity + deltaAcc;
+				: adjustment + MSatelliteBaseEntity.Velocity + deltaAcc;
 			
-			m_satelliteEntity.SetVelocity(adjustedAcc);
+			MSatelliteBaseEntity.SetVelocity(adjustedAcc);
 			m_currentOrbitIndex = ++m_currentOrbitIndex % m_orbit.Count;
 		}
 

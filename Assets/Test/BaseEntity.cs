@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Test
 {
     // The generic space entity.
-    public abstract class Entity
+    public abstract class BaseEntity
     {
         // Position and velocity in space.
         public Vector2 Position { get; private set; }
@@ -12,7 +12,7 @@ namespace Test
 
         private BaseEntityBehaviour m_behaviour;
 
-        public Entity()
+        public BaseEntity()
         {        
         }
         

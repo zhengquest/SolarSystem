@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Test
 {
-	public class PlayerEntity : Entity
+	public class PlayerBaseEntity : BaseEntity
 	{
 		public override void Render()
 		{
