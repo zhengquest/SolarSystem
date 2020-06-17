@@ -11,6 +11,7 @@ namespace Test
         
         public World()
         {
+            Time.timeScale = 0.5f;
             m_entities = new List<Entity>(7);
             
             StarEntity sun = new StarEntity();
@@ -73,7 +74,7 @@ namespace Test
             
             PlayerEntity player = new PlayerEntity();
             player.SetPosition(new Vector2(0, -1));
-            player.SetVelocity(new Vector2(0, 0.1f));
+            player.SetVelocity(new Vector2(0, 0.01f));
             player.SetBehaviour(new PlayerEntityBehaviour(sun, player, m_fixedTimeStep));
             m_entities.Add(player);
         }
